@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Generated Timetable</h1>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Course</th>
+                    <th>Group</th>
+                    <th>Day</th>
+                    <th>Slot</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for (course, group), (day, slot) in timetable.items() %}
+                <tr>
+                    <td>{{ course }}</td>
+                    <td>{{ group }}</td>
+                    <td>{{ day }}</td>
+                    <td>{{ slot }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2 class="mt-5">Report an Anomaly</h2>
+        <form method="POST" action="/submit_anomaly">
+            <div class="form-group">
+                <label for="anomaly">Describe the anomaly:</label>
+                <textarea class="form-control" id="anomaly" name="anomaly" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <h2 class="mt-5">Add a Constraint</h2>
+        <form method="POST" action="/submit_constraint">
+            <div class="form-group">
+                <label for="constraint">Describe the constraint:</label>
+                <textarea class="form-control" id="constraint" name="constraint" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <h2 class="mt-5">Anomalies and Solutions</h2>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Anomaly</th>
+                    <th>Solution</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for anomaly, solution in anomalies.items() %}
+                <tr>
+                    <td>{{ anomaly }}</td>
+                    <td>{{ solution }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2 class="mt-5">User Constraints and Solutions</h2>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Constraint</th>
+                    <th>Solution</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for constraint, solution in constraints.items() %}
+                <tr>
+                    <td>{{ constraint }}</td>
+                    <td>{{ solution }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
